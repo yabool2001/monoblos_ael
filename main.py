@@ -1,3 +1,6 @@
+# Remarks:
+# Git remote respository doesn't contain CVS folders: Mono_BLOS_19_all_in_one-main_ael/ and cemeouhf__ael/ You can find them on Google Drive https://drive.google.com/drive/folders/1VwieRbJuh2ZwxqC4sYGRUO-VsWpSQx9H
+
 import pandas as pd
 from pathlib import Path
 
