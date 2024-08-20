@@ -70,8 +70,8 @@ satellites = df_january['To satellite'].unique()
 fig, ax = plt.subplots(figsize=(20, 8))
 
 for satellite in satellites:
-    df_sat = df_january[df_january['To satellite'] == satellite]
-    ax.plot(df_sat['Time (UTCG)'], df_sat['Elevation (deg)'], label=satellite)
+    df_sat = df_january[ df_january[ 'To satellite' ] == satellite ]
+    ax.plot ( df_sat[ 'Time (UTCG)' ] , df_sat[ 'Elevation (deg)' ] , label = satellite )
 
 # Dostosowanie osi czasu z podziałką dzienną
 ax.xaxis.set_major_locator(mdates.DayLocator(interval=1))
