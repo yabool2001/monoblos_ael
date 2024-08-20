@@ -4,12 +4,17 @@
 import pandas as pd
 from pathlib import Path
 
-p = Path ('Mono_BLOS_19_all_in_one-main_ael')
+# Selections:
+terminal_to_satellite_ael = 'Place-POL_Mid-To-Satellite-1s' # Filtruj jaka konstelacja ma być analizowana
+
+all_in_one = Path ( 'Mono_BLOS_19_all_in_one-main_ael' )
+ce_const = Path ( 'cemeouhf_ael' )
+
 df = pd.DataFrame ()  # Inicjalizacja głównego DataFrame, który będzie zawierał wszystkie dane
 
-for child in p.iterdir () :
-    if child.is_file () and child.suffix == '.csv' :
-        print ( child )
+for child in all_in_one.iterdir () :
+    if child.is_file () and child.suffix == '.csv' and child.name.startswith ( terminal_to_satellite_ael ) :
+        print ( child.name )
         df_ael = pd.read_csv ( child , on_bad_lines = 'skip' , delimiter = ',' )
         df_ael['To satellite'] = child.stem.split('-')[-1].split('_')[0]
         df_ael['From terminal'] = child.stem.split('-')[1].split('-')[0]
@@ -57,7 +62,7 @@ import matplotlib.dates as mdates
 # Filtracja danych dla okresu styczeń 2000
 start_date = '2000-01-01'
 end_date = '2000-01-31'
-df_january = df[(df['Time (UTCG)'] >= start_date) & (df['Time (UTCG)'] <= end_date)]
+df_january = df [ ( df['Time (UTCG)'] >= start_date ) & ( df[ 'Time (UTCG)' ] <= end_date ) ]
 
 # Zdefiniowanie unikalnych nazw satelitów
 satellites = df_january['To satellite'].unique()
