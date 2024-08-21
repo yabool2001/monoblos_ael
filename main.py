@@ -1,8 +1,7 @@
 # Remarks:
 # Git remote respository doesn't contain CVS folders: Mono_BLOS_19_all_in_one-main_ael/ and cemeouhf__ael/ You can find them on Google Drive https://drive.google.com/drive/folders/1VwieRbJuh2ZwxqC4sYGRUO-VsWpSQx9H
 
-import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
+import plotly.express as px
 import pandas as pd
 from pathlib import Path
 
@@ -63,32 +62,12 @@ start_date = pd.to_datetime ( '2000-01-01' )
 end_date = pd.to_datetime ( '2000-01-31' )
 df_january = df[ ( df[ 'Time (UTCG)' ] >= start_date ) & ( df[ 'Time (UTCG)' ] <= end_date ) ]
 
-# Zdefiniowanie unikalnych nazw satelitów
-satellites = df_january[ 'To satellite' ].unique ()
+# Tworzenie interaktywnego wykresu za pomocą Plotly
+fig = px.line ( df_january , x = 'Time (UTCG)' , y = 'Elevation (deg)' , color = 'To satellite' , title = 'Elewacja satelitów w styczniu 2000' )
 
-fig, ax = plt.subplots ( figsize = ( 20 , 8 ) )
+# Dodanie przybliżania i przewijania
+fig.update_xaxes ( rangeslider_visible = True )
+fig.update_layout ( autosize = True , width = 1200 , height = 600 )
 
-for satellite in satellites:
-    df_sat = df_january[ df_january[ 'To satellite' ] == satellite ]
-    ax.plot ( df_sat[ 'Time (UTCG)' ] , df_sat[ 'Elevation (deg)' ] , label = satellite )
-
-# Dostosowanie osi czasu z podziałką dzienną
-ax.xaxis.set_major_locator ( mdates.DayLocator ( interval = 1 ) )
-ax.xaxis.set_major_formatter ( mdates.DateFormatter ( '%Y-%m-%d' ) )
-plt.xticks ( rotation = 45 )
-
-# Ustawienie początkowego zakresu na kilka dni (np. pierwsze 3 dni stycznia 2000)
-start_view = pd.to_datetime ( '2000-01-01' )
-end_view = pd.to_datetime ( '2000-01-03' )
-ax.set_xlim ( [ start_view , end_view ] )
-
-# Dodanie legendy, siatki i opisów osi
-plt.xlabel ( 'Czas (UTCG)' )
-plt.ylabel ( 'Elewacja (deg)' )
-plt.title ( 'Elewacja satelitów w styczniu 2000' )
-plt.legend ( title = 'Satelita' )
-plt.grid ( True )
-
-# Włączenie przewijania w osi czasu (można użyć narzędzia do powiększania w matplotlib)
-plt.tight_layout ()
-plt.show ()
+# Wyświetlenie wykresu
+fig.show ()
