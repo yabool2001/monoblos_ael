@@ -6,14 +6,15 @@ import pandas as pd
 from pathlib import Path
 
 # Selections:
-terminal_to_satellite_ael = 'Place-POL_Mid-To-Satellite-1s' # Filtruj jaka konstelacja ma być analizowana
+#terminal_to_satellite_ael = 'Place-POL_Mid-To-Satellite-1s' # 4 satelity konstelacji MEO z próbkowaniem 1s
+terminal_to_satellite_ael = 'Place-CEMID-Sensor-Sensor1-To-Satellite-POLMEO' # 12 satelitów MEO konstaleacji Central European
 
-all_in_one = Path ( 'Mono_BLOS_19_all_in_one-main_ael' )
-ce_const = Path ( 'cemeouhf_ael' )
+# ael_folder = Path ( 'Mono_BLOS_19_all_in_one-main_ael' )
+ael_folder = Path ( 'cemeouhf_ael' )
 
 df = pd.DataFrame ()  # Inicjalizacja głównego DataFrame, który będzie zawierał wszystkie dane
 
-for child in all_in_one.iterdir () :
+for child in ael_folder.iterdir () :
     if child.is_file () and child.suffix == '.csv' and child.name.startswith ( terminal_to_satellite_ael ) :
         print ( child.name )
         df_ael = pd.read_csv ( child , on_bad_lines = 'skip' , delimiter = ',' )
