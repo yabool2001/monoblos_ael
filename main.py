@@ -63,12 +63,17 @@ start_date = pd.to_datetime ( '2000-01-01' )
 end_date = pd.to_datetime ( '2000-01-31' )
 df_january = df[ ( df[ 'Time (UTCG)' ] >= start_date ) & ( df[ 'Time (UTCG)' ] <= end_date ) ]
 
+# Dane tylko dla max elevation
+max_elev = df_january[ 'Elevation (deg)' ].max ()
+df_max_elev = df_january[ df_january['Elevation (deg)' ] == max_elev ]
+
 # Tworzenie interaktywnego wykresu za pomocą Plotly
-fig = px.line ( df_january , x = 'Time (UTCG)' , y = 'Elevation (deg)' , color = 'To satellite' , title = 'Elewacja satelitów w styczniu 2000' )
+fig1 = px.line ( df_january , x = 'Time (UTCG)' , y = 'Elevation (deg)' , color = 'To satellite' , title = 'Elewacja satelitów w styczniu 2000' )
+fig1.update_xaxes ( rangeslider_visible = True )
+fig1.update_layout ( autosize = True , width = 1200 , height = 600 )
+fig1.show ()
 
-# Dodanie przybliżania i przewijania
-fig.update_xaxes ( rangeslider_visible = True )
-fig.update_layout ( autosize = True , width = 1200 , height = 600 )
-
-# Wyświetlenie wykresu
-fig.show ()
+fig2 = px.scatter ( df_january , x = 'Time (UTCG)' , y = 'Elevation (deg)' , color = 'To satellite' , title = 'Max elewacja satelitów w styczniu 2000' )
+fig2.update_xaxes ( rangeslider_visible = True )
+fig2.update_layout ( autosize = True , width = 1200 , height = 600 )
+fig2.show ()
