@@ -22,10 +22,10 @@ for child in ael_folder.iterdir () :
         df_ael['From terminal'] = child.stem.split('-')[1].split('-')[0]
 
         # Convert values, forcing errors to NaN
-        df_ael['Time (UTCG)'] = pd.to_datetime ( df_ael['Time (UTCG)'] , errors='coerce' )
-        df_ael['Azimuth (deg)'] = pd.to_numeric ( df_ael['Azimuth (deg)'] , errors='coerce' )
-        df_ael['Elevation (deg)'] = pd.to_numeric ( df_ael['Elevation (deg)'] , errors='coerce' )
-        df_ael['Range (km)'] = pd.to_numeric ( df_ael['Range (km)'] , errors='coerce' )
+        df_ael['Time (UTCG)'] = pd.to_datetime ( df_ael['Time (UTCG)'] , errors = 'coerce' )
+        df_ael['Azimuth (deg)'] = pd.to_numeric ( df_ael['Azimuth (deg)'] , errors = 'coerce' )
+        df_ael['Elevation (deg)'] = pd.to_numeric ( df_ael['Elevation (deg)'] , errors = 'coerce' )
+        df_ael['Range (km)'] = pd.to_numeric ( df_ael['Range (km)'] , errors = 'coerce' )
 
         # Drop rows where value is NaN
         #df_ael = df_ael.dropna ( subset = ['Time (UTCG)'] )
@@ -68,7 +68,7 @@ max_elev = df_january[ 'Elevation (deg)' ].max ()
 df_max_elev = df_january[ df_january['Elevation (deg)' ] == max_elev ]
 
 # Tworzenie interaktywnego wykresu za pomocą Plotly
-fig1 = px.line ( df_january , x = 'Time (UTCG)' , y = 'Elevation (deg)' , color = 'To satellite' , title = 'Elewacja satelitów w styczniu 2000' )
+fig1 = px.scatter ( df_january , x = 'Time (UTCG)' , y = 'Elevation (deg)' , color = 'To satellite' , title = 'Elewacja satelitów w styczniu 2000' )
 fig1.update_xaxes ( rangeslider_visible = True )
 fig1.update_layout ( autosize = True , width = 1200 , height = 600 )
 fig1.show ()

@@ -1,0 +1,9 @@
+I'm analyzing AER data obtained thanks to the Access function, which is supposed to show AER values ​​from a sensor on Earth to a satellite. However, the data is limited because the report does not include the terminal's access to the satellite if the terminal could have access to another satellite in the constellation at that time. The situation is shown in the attached graph presenting the merged data generated separately for each relation - terminal to each of the satellites.
+
+What seems confusing to me is that the purpose of the configured report was to be access values ​​in a specific relation of two objects (a specific place to a specific satellite, not a constellation). For this purpose, I did "Compute" in a specific relation and as a result I did not receive all the data in this relation.
+
+In connection with the above, I wanted to ask whether you confirm my observation that the access results for the place -> satellite relation are not complete because they do not include the values ​​for the time when the place had access to another satellite in the constellation?
+
+Is it possible to obtain full data on the terminal's access to the satellite in the case when the satellite is in the constellation?
+
+If it is not possible to obtain full data on the terminal's access to the satellite in the case when the satellite is in the constellation. Is it possible to configure the terminal to always select the satellite to which it has the highest elevation value?
